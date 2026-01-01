@@ -1,110 +1,35 @@
-# London Train Travel
+# tfl
 
-## Aims
+This project aims to collate the travel times on public transport in London by scraping Google Maps. 
 
--   To acquire a complete data set of the travel times via public transport,
-    as well as the means to update this data set with minimal effort.
+## Design and Implementation
 
--   To determine all stations and areas within a given travel time from a given station.
+The design and implementation were informed by the following resources.
 
--   To predict the shortest route via public transport using the A* algorithm.
+- [Stations, stops and piers](https://tfl.gov.uk/travel-information/stations-stops-and-piers/)
+- [Standard Tube map (as of 06/2025)](https://content.tfl.gov.uk/standard-tube-map.pdf)
 
-## Important Links
+The main program is entirely contained in `maps.py` and requires `maps.json`. All JSON files should be in the `./data` folder. The minimum data required in `maps.json` is as follows.
 
--   [Stations, stops and piers](https://tfl.gov.uk/travel-information/stations-stops-and-piers/)
+```
+{
+  "underground": {
+    "bakerloo": {
+      "paths": {
+        "path1": {
+          "url": "URL"
+        } 
+      }
+    }
+  }
+}
+```
+All the keys, except `"paths"` and `"url"`, can be replaced by any string. The codes of the start and end of a path on the line are used in place of `"path1"` in `maps.json` for easy identification. `"URL"` must be a Google Maps URL for a specific path. For example, all the stations on a path should lie on the same underground line; additionally, there should not be any walking in the middle of the journey.
+Besides `maps.py`, there are two other standalone scripts:
 
--   [Standard Tube map (as of 06/2025)](https://content.tfl.gov.uk/standard-tube-map.pdf)
+- `underground_wiki.py` saves the data on [this Wikipedia page](https://en.wikipedia.org/wiki/List_of_London_Underground_stations) to `underground.json`. This data comprises the names of the stations, the tube lines that pass through them, and their locations.
+- `codes.py` saves the stations and their codes in [station-abbreviations.pdf](https://github.com/SeanESCA/box-of-scraps/blob/main/tfl/station-abbreviations.pdf) to `networks.json` and `stations.json`. The original file is provided by Transport for London at [Station Codes (as of 2014)](https://content.tfl.gov.uk/station-abbreviations.pdf).
 
--   [Station codes (as of 2014)](https://content.tfl.gov.uk/station-abbreviations.pdf)
+## Contributing
 
-## Methodology
-
--   Acquire travel times by scraping Google Maps.
-
--   Store coordinates of every station with respect to every line.
-
-## Checklist
-
-### Travel Times
-
-#### Underground
-
-- [x] Bakerloo
-- [x] Central
-- [x] Circle
-- [x] District
-- [x] Jubilee
-- [x] Metropolitan
-- [x] Northern
-- [x] Piccadilly
-- [x] Victoria
-- [x] Waterloo and City
-
-#### Overground
-
-- [x] Liberty
-- [x] Lioness
-- [ ] Mildmay
-- [x] Suffragette
-- [ ] Weaver
-- [ ] Windrush
-
-#### Misc
-
-- [ ] Elizabeth
-- [ ] London Trams
-- [ ] Thameslink
-
-### Node Positions
-
-#### Underground
-
-- Bakerloo
-    - [ ] Elephant & Castle to Harrow & Wealdstone
-- Central
-    - [ ] West Ruislip to Leytonstone
-    - [ ] Leytonstone to Snaresbrook
-    - [ ] Woodford to Epping
-- Circle
-    - [x] Paddington to Hammersmith
-    - [x] Paddington to Bayswater
-- District
-    - [ ] Ealing Broadway to Upminster
-    - [ ] Turnham Green to Richmond
-    - [ ] Wimbledon to Edgware Road
-    - [ ] Earl's Court to Kensington (Olympia)
-- Jubilee
-    - [ ] Stanmore to Stratford
-- Metropolitan
-    - [ ] Amersham to Aldgate
-    - [ ] Harrow-on-the-Hill to Uxbridge
-    - [ ] Moor Park to Watford
-    - [ ] Chalfont & Latimer to Chesham
-- Northern
-    - [ ] Kennington to Elephant & Castle
-    - [ ] Kennington to Battersea
-    - [ ] Kennington to Morden
-    - [ ] Euston to Edgware
-    - [ ] Camden Town to High Barnet
-    - [ ] Finchley Central to Mill Hill East
-- Piccadilly
-    - [x] Uxbridge to Cockfosters
-    - [x] Acton Town to Hatton Cross
-    - [x] Hatton Cross to Heathrow Terminals 2 & 3
-    - [x] Heathrow Terminal's 2 & 3 to Heathrow Terminal 5.
-- Victoria
-    - [ ] Brixton to Walthamstow Central
-- W&C
-    - [ ] Waterloo to Bank
-
-#### Misc
-
-- Elizabeth
-- London Trams
-- Thameslink
-- Liberty
-- Lioness
-- Mildmay
-- Suffragette
-- Weaver
-- Windrush
+This project will probably not be continued because I personally no longer need it. Still, if you want to help expand this project, let's get in touch!
