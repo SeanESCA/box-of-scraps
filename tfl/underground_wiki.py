@@ -36,7 +36,7 @@ while i < len(names) - 1:
     areas.pop(i)
   i += 1
 # Save the station data to a JSON file.
-with open("data/stations1.json", "w") as file:
+with open("./tfl/data/underground.json", "w") as file:
   file.write(json.dumps({
     "names": names,
     "lines": lines,
